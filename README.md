@@ -1,7 +1,7 @@
 # LicitaData
 
-Frontend novo (Next.js 16 · React 19 · Tailwind 4) construído sobre o **mesmo backend do MonitoraME**
-(`backend-monitoraME-develop`, NestJS na porta 3333).
+Frontend (Next.js 16 · React 19 · Tailwind 4) 
+Backend (NestJS na porta 3333).
 
 ## Rodar
 
