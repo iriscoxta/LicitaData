@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --canvas: #f3f3f1;
+  --surface: #ffffff;
+  --surface-2: #f8f8f7;
+  --ink: #0d0d10;
+  --ink-2: #3c3c43;
+  --muted: #74747c;
+  --line: #e7e7e4;
+  --line-strong: #d6d6d2;
+  --brand: #3a4dff;
+  --brand-soft: #eceeff;
+  --brand-ink: #1e2bb8;
+
+  /* Tags pastel (estilo pílula) */
+  --tag-green-bg: #e6f6ec; --tag-green-fg: #17793f;
+  --tag-amber-bg: #fdf1dc; --tag-amber-fg: #9a5b06;
+  --tag-rose-bg: #fde8ea;  --tag-rose-fg: #b4233a;
+  --tag-violet-bg: #efe9fe; --tag-violet-fg: #6236c9;
+  --tag-sky-bg: #e3f2fd;   --tag-sky-fg: #0b6aa8;
+  --tag-teal-bg: #ddf5f1;  --tag-teal-fg: #0f766e;
+  --tag-gray-bg: #efefed;  --tag-gray-fg: #4b4b52;
+  --tag-blue-bg: #e8ebff;  --tag-blue-fg: #2c3ad6;
+
+  /* Paleta de dados */
+  --data-1: #6f7bff;
+  --data-2: #7ccf9a;
+  --data-3: #ffc960;
+  --data-4: #ff7f7f;
+  --data-5: #8fd3e8;
+  --data-6: #c39bff;
+  --data-7: #f5a8d0;
+
+  --shadow-card: 0 1px 0 rgb(13 13 16 / 3%), 0 1px 2px rgb(13 13 16 / 4%);
+  --shadow-pop: 0 18px 40px -16px rgb(13 13 16 / 22%), 0 2px 6px rgb(13 13 16 / 6%);
+}
+
+.dark {
+  color-scheme: dark;
+  --canvas: #0b0b0e;
+  --surface: #131317;
+  --surface-2: #18181d;
+  --ink: #f4f4f6;
+  --ink-2: #c9c9d1;
+  --muted: #8d8d97;
+  --line: #24242b;
+  --line-strong: #31313a;
+  --brand: #7d8aff;
+  --brand-soft: #1b1e3d;
+  --brand-ink: #b8bfff;
+
+  --tag-green-bg: #10291b; --tag-green-fg: #7ee2a2;
+  --tag-amber-bg: #2d220c; --tag-amber-fg: #ffcc6e;
+  --tag-rose-bg: #2f1418;  --tag-rose-fg: #ff98a6;
+  --tag-violet-bg: #231a3d; --tag-violet-fg: #c8b2ff;
+  --tag-sky-bg: #0f2333;   --tag-sky-fg: #8dd0ff;
+  --tag-teal-bg: #0d2826;  --tag-teal-fg: #74e0d3;
+  --tag-gray-bg: #22222a;  --tag-gray-fg: #c4c4cc;
+  --tag-blue-bg: #1a1e3f;  --tag-blue-fg: #aeb6ff;
+
+  --shadow-card: 0 1px 0 rgb(0 0 0 / 30%);
+  --shadow-pop: 0 18px 40px -16px rgb(0 0 0 / 70%), 0 0 0 1px rgb(255 255 255 / 4%);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+}
+
+html {
+  background: var(--canvas);
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--brand);
+  color: white;
+}
+
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'ss01' 1;
+}
+
+/* Cartões no estilo do painel de referência: cabeçalho cinza + corpo branco */
+.card {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+}
+.card-body {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 13px 13px;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+/* Leaflet ajustado aos tokens */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: var(--surface-2);
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-pop);
+  border: 1px solid var(--line);
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+}
+.leaflet-popup-content {
+  margin: 14px 16px;
+}
+.leaflet-control-zoom a {
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  border-color: var(--line) !important;
+}
+.leaflet-control-attribution {
+  background: color-mix(in oklab, var(--surface) 80%, transparent) !important;
+  color: var(--muted) !important;
+  font-size: 10px;
+}
+.leaflet-control-attribution a {
+  color: var(--muted) !important;
+}
+
+.ld-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--data-1) 88%, white);
+  color: white;
+  font: 600 12px/1 var(--font-geist), sans-serif;
+  border: 3px solid color-mix(in oklab, var(--surface) 85%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--data-1) 22%, transparent), 0 6px 16px -6px rgb(0 0 0 / 0.35);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.ld-cluster:hover {
+  transform: scale(1.12);
+}
+
+/* Entrada do hero em CSS puro: aparece mesmo antes da hidratação. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.rise {
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--line) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
